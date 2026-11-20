@@ -343,6 +343,10 @@ only when it's green and a maintainer has fully reviewed it, code as well as wor
       will reach it alone. Format through `cargo xtask fmt [--check]`, which runs rustfmt on the same
       files in batches that fit, and have `ci` use it
       — claimed: FuryNocturn, branch chore/r5.2-fmt-on-windows
+- [ ] `cutter::tests::sends_the_command_in_the_path` (engines) failed once in CI with "Interrupted
+      system call": a loopback call interrupted by a signal was reported as "no session answered".
+      Call again when interrupted, within the caller's time limit
+      — claimed: tanish2k09, branch bugfix/r5.2-interrupted-loopback-call
 
 ### R5.3 A builder that can't make progress stops
 Owner: open · Status: todo
