@@ -343,10 +343,15 @@ only when it's green and a maintainer has fully reviewed it, code as well as wor
       will reach it alone. Format through `cargo xtask fmt [--check]`, which runs rustfmt on the same
       files in batches that fit, and have `ci` use it
       — claimed: FuryNocturn, branch chore/r5.2-fmt-on-windows
-- [ ] `cutter::tests::sends_the_command_in_the_path` (engines) failed once in CI with "Interrupted
+- [x] `cutter::tests::sends_the_command_in_the_path` (engines) failed once in CI with "Interrupted
       system call": a loopback call interrupted by a signal was reported as "no session answered".
-      Call again when interrupted, within the caller's time limit
+      `cutter::command` now calls again when interrupted (up to 3 calls within the caller's one
+      time limit, through `platform::retry::when_interrupted`); the Cutter command tool, whose
+      commands can change the session, calls once and says the call was interrupted
       — claimed: tanish2k09, branch bugfix/r5.2-interrupted-loopback-call
+- [ ] `mcp_client.rs`'s `post` reports an interrupted call (EINTR) as "Couldn't reach the plugin"
+      (`EngineMissing`); a JSON-RPC POST isn't safe to send again, so say it was interrupted instead.
+      Wait for #2197, which changes that function
 
 ### R5.3 A builder that can't make progress stops
 Owner: open · Status: todo
